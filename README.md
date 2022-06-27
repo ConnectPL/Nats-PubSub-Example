@@ -23,7 +23,7 @@ These Plugin example using the NATS PubSub [nats](https://github.com/nats-io/nat
 
 ## Usage
 
-###Connecting
+#### Connecting
 
 In main class \/
 ```java
@@ -38,13 +38,13 @@ public Connection connection;
         }   
     }
 ```
-###Publishing
+#### Publishing
 
 ```java
     connection.publish("example", "hii".getBytes());
 ```
 
-###Receive
+#### Receive
 
 Dispatcher can multiple pubsub with a single thread and shared callback
 ```java
