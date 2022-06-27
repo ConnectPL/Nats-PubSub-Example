@@ -23,11 +23,34 @@ These Plugin example using the NATS PubSub [nats](https://github.com/nats-io/nat
 
 ## Usage
 
-1. Connect to NATS server:
+####Connecting
+
+In main class \/
 ```java
-        try {
-            connection = Nats.connect("nats://localhost:4222");
-        } catch (IOException | InterruptedException exception) {
-            exception.printStackTrace();
-        }```
+
+public Connection connection;
+
+    try {
+        connection = Nats.connect("nats://localhost:4222");
+    } catch (IOException | InterruptedException exception) {
+        exception.printStackTrace();
+    }
+    ```
+####Publishing
+
+```java
+    connection.publish("example", "hii".getBytes());
+    ```
+
+####Receive
+
+Dispatcher can multiple pubsub with a single thread and shared callback
+```java
+    Dispatcher d = nc.createDispatcher((msg) -> {});
+
+    Subscription s = d.subscribe("example", (msg) -> {
+        System.out.println(new String(msg.getData()));
+    });
+    d.unsubscribe(s, 100);
+    ```
 
