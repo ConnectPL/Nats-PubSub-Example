@@ -9,7 +9,7 @@ These Plugin example using the NATS PubSub [nats](https://github.com/nats-io/nat
 ```xml
 <repositories>
     <repository>
-        <id>sonatype snapshots</id>
+        <id>sonatype</id>
         <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </repository>
 </repositories>
