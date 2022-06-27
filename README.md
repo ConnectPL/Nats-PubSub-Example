@@ -21,7 +21,7 @@ These Plugin example using the NATS PubSub [nats](https://github.com/nats-io/nat
 </dependency>
 ```
 
-## Usage
+## Usage Example
 
 ### Connecting
 
