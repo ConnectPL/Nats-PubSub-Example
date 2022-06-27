@@ -1,0 +1,3 @@
+# Project exclude paths
+/proxy-nats/target/
+/spigot-nats/target/
