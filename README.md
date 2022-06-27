@@ -47,7 +47,7 @@ public Connection connection;
 
 Dispatcher can multiple pubsub with a single thread and shared callback
 ```java
-    Dispatcher d = nc.createDispatcher((msg) -> {});
+    Dispatcher d = connection.createDispatcher((msg) -> {});
 
     Subscription s = d.subscribe("example", (msg) -> {
         System.out.println(new String(msg.getData()));
