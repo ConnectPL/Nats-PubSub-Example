@@ -20,3 +20,14 @@ These Plugin example using the NATS PubSub [nats](https://github.com/nats-io/nat
     <version>2.15.3</version>
 </dependency>
 ```
+
+## Usage
+
+1. Connect to NATS server:
+```java
+        try {
+            connection = Nats.connect("nats://localhost:4222");
+        } catch (IOException | InterruptedException exception) {
+            exception.printStackTrace();
+        }```
+
