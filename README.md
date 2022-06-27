@@ -35,12 +35,12 @@ public Connection connection;
     } catch (IOException | InterruptedException exception) {
         exception.printStackTrace();
     }
-    ```
+```
 ####Publishing
 
 ```java
     connection.publish("example", "hii".getBytes());
-    ```
+```
 
 ####Receive
 
@@ -52,5 +52,5 @@ Dispatcher can multiple pubsub with a single thread and shared callback
         System.out.println(new String(msg.getData()));
     });
     d.unsubscribe(s, 100);
-    ```
+```
 
