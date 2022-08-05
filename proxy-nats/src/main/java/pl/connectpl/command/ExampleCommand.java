@@ -1,6 +1,5 @@
-package pl.connectpl.cmd;
+package pl.connectpl.command;
 
-import io.nats.client.Connection;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -11,35 +10,38 @@ import pl.connectpl.NatsProxy;
 public class ExampleCommand extends Command {
 
     private final NatsProxy plugin;
+
     public ExampleCommand(NatsProxy plugin) {
         super("nats");
         this.plugin = plugin;
-        plugin.getProxy().getPluginManager().registerCommand(plugin, this);
     }
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if(!(sender instanceof ProxiedPlayer)) {
+        if (!(sender instanceof ProxiedPlayer)) {
             sender.sendMessage(new TextComponent("Komenda tylko dla graczy!"));
             return;
         }
-        if(args.length <= 0) {
+        if (args.length <= 0) {
             sender.sendMessage(new TextComponent("Wpisz tresc wiadomosci!"));
             return;
         }
+
         ProxiedPlayer player = (ProxiedPlayer) sender;
-        Connection connection = plugin.getConnection();
         StringBuilder builder = new StringBuilder();
 
-        for(int i=0; i<args.length; i++){
-            builder.append(args[i]).append(" ");
+        for (String arg : args) {
+            builder.append(arg).append(" ");
         }
-        String s = builder.toString();
+        String string = builder.toString();
+        String broadcastMessage = "&cOGLOSZENIE " + "&7" + string;
 
-        String bcmsg = "&cOGLOSZENIE " + "&7" + s;
+        plugin.getConnection().publish("example-command", broadcastMessage.getBytes());
+        player.sendMessage(new TextComponent(color("&aPomyslnie wyslano wiadomosc!")));
+    }
 
-        connection.publish("example-cmd", bcmsg.getBytes());
-        player.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',"&aPomyslnie wyslano wiadomosc!")));
+    private static String color(String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 
 }

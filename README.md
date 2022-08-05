@@ -37,6 +37,7 @@ public Connection connection;
         }   
     }
 ```
+
 ### Publishing
 
 ```java
@@ -46,6 +47,7 @@ public Connection connection;
 ### Listening
 
 Dispatcher can multiple pubsub with a single thread and shared callback
+
 ```java
     Dispatcher d = connection.createDispatcher((msg) -> {});
 

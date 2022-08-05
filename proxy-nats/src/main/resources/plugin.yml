@@ -1,4 +1,4 @@
-name: 'Nats-Proxy'
-main: 'pl.connectpl.NatsProxy'
-author: 'ConnectPL'
+main: "pl.connectpl.NatsProxy"
+name: "Nats-Proxy"
+author: "ConnectPL"
 version: 0.1
