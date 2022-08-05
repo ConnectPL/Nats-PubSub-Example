@@ -1,4 +1,4 @@
-name: 'Nats-Spigot'
-main: 'pl.connectpl.NatsSpigot'
-author: 'ConnectPL'
+main: "pl.connectpl.NatsSpigot"
+name: "Nats-Spigot"
+author: "ConnectPL"
 version: 0.1

@@ -3,46 +3,41 @@ package pl.connectpl.nats;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
 import io.nats.client.Subscription;
+import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.api.ChatColor;
 import pl.connectpl.NatsSpigot;
 
-public class NatsReceiver {
+@RequiredArgsConstructor
+public final class NatsReceiver {
 
     private final NatsSpigot plugin;
     private final Connection connection;
 
-    public NatsReceiver(NatsSpigot plugin, Connection connection) {
-        this.plugin = plugin;
-        this.connection = connection;
-        handle();
+    private static String color(String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 
     public void handle() {
-        Dispatcher d = connection.createDispatcher((msg) -> {});
-
-        Subscription subjoin = d.subscribe("example-join", (msg) -> {
-            String subbroadcast = new String(msg.getData());
-            plugin.getServer().broadcastMessage(color(subbroadcast));
+        Dispatcher dispatcher = connection.createDispatcher((msg) -> {
         });
-        d.unsubscribe(subjoin, 100);
 
-        Subscription subquit = d.subscribe("example-quit", (msg) -> {
-            String subbroadcast = new String(msg.getData());
-            plugin.getServer().broadcastMessage(color(subbroadcast));
+        Subscription subJoin = dispatcher.subscribe("example-join", (msg) -> {
+            String subBroadcast = new String(msg.getData());
+            plugin.getServer().broadcastMessage(color(subBroadcast));
         });
-        d.unsubscribe(subquit, 100);
+        dispatcher.unsubscribe(subJoin, 100);
 
-        Subscription subcmd = d.subscribe("example-cmd", (msg) -> {
-            String subbroadcast = new String(msg.getData());
-            plugin.getServer().broadcastMessage(color(subbroadcast));
+        Subscription subQuit = dispatcher.subscribe("example-quit", (msg) -> {
+            String subBroadcast = new String(msg.getData());
+            plugin.getServer().broadcastMessage(color(subBroadcast));
         });
-        d.unsubscribe(subcmd, 100);
+        dispatcher.unsubscribe(subQuit, 100);
+
+        Subscription subCommand = dispatcher.subscribe("example-command", (msg) -> {
+            String subBroadcast = new String(msg.getData());
+            plugin.getServer().broadcastMessage(color(subBroadcast));
+        });
+        dispatcher.unsubscribe(subCommand, 100);
     }
-
-
-    public static String color(String m) {
-        return ChatColor.translateAlternateColorCodes('&', m);
-    }
-
 
 }
